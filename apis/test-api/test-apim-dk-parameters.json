@@ -5,11 +5,8 @@
     "ApimServiceName": {
       "value": "test-apim-clone-dk"
     },
-    "LinkedTemplatesBaseUrl": {
+    "BaseUrl": {
       "value": "http://example.org/test-apim-dk/"
-    },
-    "PolicyXMLBaseUrl": {
-      "value": "http://example.org/test-apim-dk/policies/"
     }
   },
   "resources": []

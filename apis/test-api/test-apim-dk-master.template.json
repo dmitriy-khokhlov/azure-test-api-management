@@ -8,16 +8,10 @@
         "description": "Name of the API Management"
       }
     },
-    "LinkedTemplatesBaseUrl": {
+    "BaseUrl": {
       "type": "string",
       "metadata": {
-        "description": "Base URL of the repository that contains the generated templates"
-      }
-    },
-    "PolicyXMLBaseUrl": {
-      "type": "string",
-      "metadata": {
-        "description": "Base URL of the repository that contains the generated policy files"
+        "description": "Base URL of the repository that contains this template"
       }
     }
   },
@@ -26,15 +20,15 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "[concat(parameters('LinkedTemplatesBaseUrl'), '/test-apim-dk-globalServicePolicy.template.json')]",
+          "uri": "[concat(parameters('BaseUrl'), '/test-apim-dk-globalServicePolicy.template.json')]",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
           "ApimServiceName": {
             "value": "[parameters('ApimServiceName')]"
           },
-          "PolicyXMLBaseUrl": {
-            "value": "[parameters('PolicyXMLBaseUrl')]"
+          "BaseUrl": {
+            "value": "[parameters('BaseUrl')]"
           }
         }
       },
@@ -47,15 +41,15 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "[concat(parameters('LinkedTemplatesBaseUrl'), '/test-apim-dk-products.template.json')]",
+          "uri": "[concat(parameters('BaseUrl'), '/test-apim-dk-products.template.json')]",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
           "ApimServiceName": {
             "value": "[parameters('ApimServiceName')]"
           },
-          "PolicyXMLBaseUrl": {
-            "value": "[parameters('PolicyXMLBaseUrl')]"
+          "BaseUrl": {
+            "value": "[parameters('BaseUrl')]"
           }
         }
       },
@@ -68,15 +62,15 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "[concat(parameters('LinkedTemplatesBaseUrl'), '/test-apim-dk-test-api-api.template.json')]",
+          "uri": "[concat(parameters('BaseUrl'), '/test-apim-dk-test-api-api.template.json')]",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
           "ApimServiceName": {
             "value": "[parameters('ApimServiceName')]"
           },
-          "PolicyXMLBaseUrl": {
-            "value": "[parameters('PolicyXMLBaseUrl')]"
+          "BaseUrl": {
+            "value": "[parameters('BaseUrl')]"
           }
         }
       },

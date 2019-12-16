@@ -5,8 +5,14 @@
     "ApimServiceName": {
       "type": "string"
     },
-    "PolicyXMLBaseUrl": {
+    "BaseUrl": {
       "type": "string"
+    },
+    "ApiName" :{
+      "type": "string"
+    },
+    "ApiProducts": {
+      "type": "array"
     }
   },
   "resources": [
@@ -30,7 +36,7 @@
           "https"
         ]
       },
-      "name": "[concat(parameters('ApimServiceName'), '/demo-conference-api')]",
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ApiName'))]",
       "type": "Microsoft.ApiManagement/service/apis",
       "apiVersion": "2019-01-01",
       "dependsOn": []
@@ -42,11 +48,11 @@
           "value": "{\"Body\":{\"type\":\"string\"}}"
         }
       },
-      "name": "[concat(parameters('ApimServiceName'), '/demo-conference-api/5dee3d5c33f548006030a2d9')]",
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ApiName'), '/5dee3d5c33f548006030a2d9')]",
       "type": "Microsoft.ApiManagement/service/apis/schemas",
       "apiVersion": "2019-01-01",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'demo-conference-api')]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), parameters('ApiName'))]"
       ]
     },
     {
@@ -85,11 +91,11 @@
         "method": "GET",
         "urlTemplate": "/session/{id}"
       },
-      "name": "[concat(parameters('ApimServiceName'), '/demo-conference-api/GetSession')]",
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ApiName'), '/GetSession')]",
       "type": "Microsoft.ApiManagement/service/apis/operations",
       "apiVersion": "2019-01-01",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'demo-conference-api')]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), parameters('ApiName'))]"
       ]
     },
     {
@@ -137,11 +143,11 @@
         "method": "GET",
         "urlTemplate": "/sessions"
       },
-      "name": "[concat(parameters('ApimServiceName'), '/demo-conference-api/GetSessions')]",
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ApiName'), '/GetSessions')]",
       "type": "Microsoft.ApiManagement/service/apis/operations",
       "apiVersion": "2019-01-01",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'demo-conference-api')]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), parameters('ApiName'))]"
       ]
     },
     {
@@ -177,11 +183,11 @@
         "method": "GET",
         "urlTemplate": "/session/{id}/topics"
       },
-      "name": "[concat(parameters('ApimServiceName'), '/demo-conference-api/GetSessionTopics')]",
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ApiName'), '/GetSessionTopics')]",
       "type": "Microsoft.ApiManagement/service/apis/operations",
       "apiVersion": "2019-01-01",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'demo-conference-api')]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), parameters('ApiName'))]"
       ]
     },
     {
@@ -219,11 +225,11 @@
         "method": "GET",
         "urlTemplate": "/speaker/{id}"
       },
-      "name": "[concat(parameters('ApimServiceName'), '/demo-conference-api/GetSpeaker')]",
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ApiName'), '/GetSpeaker')]",
       "type": "Microsoft.ApiManagement/service/apis/operations",
       "apiVersion": "2019-01-01",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'demo-conference-api')]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), parameters('ApiName'))]"
       ]
     },
     {
@@ -264,11 +270,11 @@
         "method": "GET",
         "urlTemplate": "/speakers"
       },
-      "name": "[concat(parameters('ApimServiceName'), '/demo-conference-api/GetSpeakers')]",
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ApiName'), '/GetSpeakers')]",
       "type": "Microsoft.ApiManagement/service/apis/operations",
       "apiVersion": "2019-01-01",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'demo-conference-api')]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), parameters('ApiName'))]"
       ]
     },
     {
@@ -303,11 +309,11 @@
         "method": "GET",
         "urlTemplate": "/speaker/{id}/sessions"
       },
-      "name": "[concat(parameters('ApimServiceName'), '/demo-conference-api/GetSpeakerSessions')]",
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ApiName'), '/GetSpeakerSessions')]",
       "type": "Microsoft.ApiManagement/service/apis/operations",
       "apiVersion": "2019-01-01",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'demo-conference-api')]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), parameters('ApiName'))]"
       ]
     },
     {
@@ -342,11 +348,11 @@
         "method": "GET",
         "urlTemplate": "/speaker/{id}/topics"
       },
-      "name": "[concat(parameters('ApimServiceName'), '/demo-conference-api/GetSpeakerTopics')]",
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ApiName'), '/GetSpeakerTopics')]",
       "type": "Microsoft.ApiManagement/service/apis/operations",
       "apiVersion": "2019-01-01",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'demo-conference-api')]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), parameters('ApiName'))]"
       ]
     },
     {
@@ -381,11 +387,11 @@
         "method": "GET",
         "urlTemplate": "/topic/{id}"
       },
-      "name": "[concat(parameters('ApimServiceName'), '/demo-conference-api/GetTopic')]",
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ApiName'), '/GetTopic')]",
       "type": "Microsoft.ApiManagement/service/apis/operations",
       "apiVersion": "2019-01-01",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'demo-conference-api')]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), parameters('ApiName'))]"
       ]
     },
     {
@@ -420,11 +426,11 @@
         "method": "GET",
         "urlTemplate": "/topics"
       },
-      "name": "[concat(parameters('ApimServiceName'), '/demo-conference-api/GetTopics')]",
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ApiName'), '/GetTopics')]",
       "type": "Microsoft.ApiManagement/service/apis/operations",
       "apiVersion": "2019-01-01",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'demo-conference-api')]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), parameters('ApiName'))]"
       ]
     },
     {
@@ -459,11 +465,11 @@
         "method": "GET",
         "urlTemplate": "/topic/{id}/sessions"
       },
-      "name": "[concat(parameters('ApimServiceName'), '/demo-conference-api/GetTopicSessions')]",
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ApiName'), '/GetTopicSessions')]",
       "type": "Microsoft.ApiManagement/service/apis/operations",
       "apiVersion": "2019-01-01",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'demo-conference-api')]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), parameters('ApiName'))]"
       ]
     },
     {
@@ -498,11 +504,11 @@
         "method": "GET",
         "urlTemplate": "/topic/{id}/speakers"
       },
-      "name": "[concat(parameters('ApimServiceName'), '/demo-conference-api/GetTopicSpeakers')]",
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ApiName'), '/GetTopicSpeakers')]",
       "type": "Microsoft.ApiManagement/service/apis/operations",
       "apiVersion": "2019-01-01",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'demo-conference-api')]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), parameters('ApiName'))]"
       ]
     },
     {
@@ -547,42 +553,37 @@
         "method": "POST",
         "urlTemplate": "/session/{id}/feedback"
       },
-      "name": "[concat(parameters('ApimServiceName'), '/demo-conference-api/SubmitSession')]",
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ApiName'), '/SubmitSession')]",
       "type": "Microsoft.ApiManagement/service/apis/operations",
       "apiVersion": "2019-01-01",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'demo-conference-api')]",
-        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'demo-conference-api', '5dee3d5c33f548006030a2d9')]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), parameters('ApiName'))]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), parameters('ApiName'), '5dee3d5c33f548006030a2d9')]"
       ]
     },
     {
       "properties": {
-        "value": "[concat(parameters('PolicyXMLBaseUrl'), '/demo-conference-api-apiPolicy.xml')]",
+        "value": "[concat(parameters('BaseUrl'), '/api-policy.xml')]",
         "format": "rawxml-link"
       },
-      "name": "[concat(parameters('ApimServiceName'), '/demo-conference-api/policy')]",
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ApiName'), '/policy')]",
       "type": "Microsoft.ApiManagement/service/apis/policies",
       "apiVersion": "2019-01-01",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'demo-conference-api')]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), parameters('ApiName'))]"
       ]
     },
     {
+      "copy": {
+        "name": "products-copy",
+        "count": "[length(parameters('ApiProducts'))]"
+      },
       "properties": {},
-      "name": "[concat(parameters('ApimServiceName'), '/contoso-product/demo-conference-api')]",
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ApiProducts')[copyIndex()], '/', parameters('ApiName'))]",
       "type": "Microsoft.ApiManagement/service/products/apis",
       "apiVersion": "2019-01-01",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'demo-conference-api')]"
-      ]
-    },
-    {
-      "properties": {},
-      "name": "[concat(parameters('ApimServiceName'), '/unlimited/demo-conference-api')]",
-      "type": "Microsoft.ApiManagement/service/products/apis",
-      "apiVersion": "2019-01-01",
-      "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'demo-conference-api')]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), parameters('ApiName'))]"
       ]
     }
   ]

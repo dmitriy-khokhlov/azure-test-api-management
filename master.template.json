@@ -8,83 +8,98 @@
         "description": "Name of the API Management"
       }
     },
-    "LinkedTemplatesBaseUrl": {
+    "BaseUrl": {
       "type": "string",
       "metadata": {
-        "description": "Base URL of the repository that contains the generated templates"
+        "description": "Base URL of the repository that contains this template"
       }
     },
-    "PolicyXMLBaseUrl": {
+    "DeploymentMode": {
       "type": "string",
+      "allowedValues": [
+        "Incremental",
+        "Complete"
+      ],
       "metadata": {
-        "description": "Base URL of the repository that contains the generated policy files"
+        "description": "Mode for linked templates deployment (APIs, products, etc.)"
+      }
+    },
+    "Apis": {
+      "type": "array",
+      "metadata": {
+        "description": "List of objects describing APIs to create: { name: string, products: array of strings }"
       }
     }
   },
   "resources": [
     {
       "properties": {
-        "mode": "Incremental",
+        "mode": ["parameters('DeploymentMode')"],
         "templateLink": {
-          "uri": "[concat(parameters('LinkedTemplatesBaseUrl'), '/test-apim-dk-globalServicePolicy.template.json')]",
+          "uri": "[concat(parameters('BaseUrl'), '/global-policy.template.json')]",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
           "ApimServiceName": {
             "value": "[parameters('ApimServiceName')]"
           },
-          "PolicyXMLBaseUrl": {
-            "value": "[parameters('PolicyXMLBaseUrl')]"
+          "BaseUrl": {
+            "value": "[parameters('BaseUrl')]"
           }
         }
       },
-      "name": "globalServicePolicyTemplate",
+      "name": "globalPolicyTemplate",
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2018-01-01",
-      "dependsOn": []
+      "apiVersion": "2018-01-01"
     },
     {
       "properties": {
-        "mode": "Incremental",
+        "mode": ["parameters('DeploymentMode')"],
         "templateLink": {
-          "uri": "[concat(parameters('LinkedTemplatesBaseUrl'), '/test-apim-dk-products.template.json')]",
+          "uri": "[concat(parameters('BaseUrl'), '/products.template.json')]",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
           "ApimServiceName": {
             "value": "[parameters('ApimServiceName')]"
           },
-          "PolicyXMLBaseUrl": {
-            "value": "[parameters('PolicyXMLBaseUrl')]"
+          "BaseUrl": {
+            "value": "[parameters('BaseUrl')]"
           }
         }
       },
       "name": "productsTemplate",
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2018-01-01",
-      "dependsOn": []
+      "apiVersion": "2018-01-01"
     },
     {
+      "copy": {
+        "name": "apis-copy",
+        "count": "[length(parameters('Apis'))]"
+      },
       "properties": {
-        "mode": "Incremental",
+        "mode": ["parameters('DeploymentMode')"],
         "templateLink": {
-          "uri": "[concat(parameters('LinkedTemplatesBaseUrl'), '/test-apim-dk-apis.template.json')]",
+          "uri": "[concat(parameters('BaseUrl'), '/', parameters('Apis')[copyIndex()].name, '/template.json')]",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
           "ApimServiceName": {
             "value": "[parameters('ApimServiceName')]"
           },
-          "PolicyXMLBaseUrl": {
-            "value": "[parameters('PolicyXMLBaseUrl')]"
+          "BaseUrl": {
+            "value": "[concat(parameters('BaseUrl'), '/', parameters('Apis')[copyIndex()].name)]"
+          },
+          "Products": {
+            "value": "[parameters('Apis')[copyIndex()].products]"
           }
         }
       },
-      "name": "apisTemplate",
+      "name": "[concat('apiTemplate-', parameters('Apis')[copyIndex()].name)]",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2018-01-01",
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/deployments', 'globalServicePolicyTemplate')]",
+        "[resourceId('Microsoft.Resources/deployments', 'globalPolicyTemplate')]",
         "[resourceId('Microsoft.Resources/deployments', 'productsTemplate')]"
       ]
     }

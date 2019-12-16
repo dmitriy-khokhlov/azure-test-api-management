@@ -5,7 +5,7 @@
     "ApimServiceName": {
       "type": "string"
     },
-    "PolicyXMLBaseUrl": {
+    "BaseUrl": {
       "type": "string"
     }
   },
@@ -67,7 +67,7 @@
     },
     {
       "properties": {
-        "value": "[concat(parameters('PolicyXMLBaseUrl'), '/create-resource-operationPolicy.xml')]",
+        "value": "[concat(parameters('BaseUrl'), '/create-resource-operationPolicy.xml')]",
         "format": "rawxml-link"
       },
       "name": "[concat(parameters('ApimServiceName'), '/echo-api/create-resource/policy')]",
@@ -160,7 +160,7 @@
     },
     {
       "properties": {
-        "value": "[concat(parameters('PolicyXMLBaseUrl'), '/retrieve-header-only-operationPolicy.xml')]",
+        "value": "[concat(parameters('BaseUrl'), '/retrieve-header-only-operationPolicy.xml')]",
         "format": "rawxml-link"
       },
       "name": "[concat(parameters('ApimServiceName'), '/echo-api/retrieve-header-only/policy')]",
@@ -263,7 +263,7 @@
     },
     {
       "properties": {
-        "value": "[concat(parameters('PolicyXMLBaseUrl'), '/retrieve-resource-cached-operationPolicy.xml')]",
+        "value": "[concat(parameters('BaseUrl'), '/retrieve-resource-cached-operationPolicy.xml')]",
         "format": "rawxml-link"
       },
       "name": "[concat(parameters('ApimServiceName'), '/echo-api/retrieve-resource-cached/policy')]",

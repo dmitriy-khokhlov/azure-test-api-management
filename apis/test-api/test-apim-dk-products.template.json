@@ -5,7 +5,7 @@
     "ApimServiceName": {
       "type": "string"
     },
-    "PolicyXMLBaseUrl": {
+    "BaseUrl": {
       "type": "string"
     }
   },

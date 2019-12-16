@@ -5,14 +5,14 @@
     "ApimServiceName": {
       "type": "string"
     },
-    "PolicyXMLBaseUrl": {
+    "BaseUrl": {
       "type": "string"
     }
   },
   "resources": [
     {
       "properties": {
-        "value": "[concat(parameters('PolicyXMLBaseUrl'), '/globalServicePolicy.xml')]",
+        "value": "[concat(parameters('BaseUrl'), '/globalServicePolicy.xml')]",
         "format": "rawxml-link"
       },
       "name": "[concat(parameters('ApimServiceName'), '/policy')]",

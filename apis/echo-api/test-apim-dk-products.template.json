@@ -5,7 +5,7 @@
     "ApimServiceName": {
       "type": "string"
     },
-    "PolicyXMLBaseUrl": {
+    "BaseUrl": {
       "type": "string"
     }
   },
@@ -68,7 +68,7 @@
     },
     {
       "properties": {
-        "value": "[concat(parameters('PolicyXMLBaseUrl'), '/starter-productPolicy.xml')]",
+        "value": "[concat(parameters('BaseUrl'), '/starter-productPolicy.xml')]",
         "format": "rawxml-link"
       },
       "name": "[concat(parameters('ApimServiceName'), '/starter/policy')]",
