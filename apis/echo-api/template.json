@@ -7,6 +7,12 @@
     },
     "BaseUrl": {
       "type": "string"
+    },
+    "ApiName" :{
+      "type": "string"
+    },
+    "ApiProducts": {
+      "type": "array"
     }
   },
   "resources": [
@@ -28,7 +34,7 @@
           "https"
         ]
       },
-      "name": "[concat(parameters('ApimServiceName'), '/echo-api')]",
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ApiName'))]",
       "type": "Microsoft.ApiManagement/service/apis",
       "apiVersion": "2019-01-01",
       "dependsOn": []
@@ -58,23 +64,23 @@
         "method": "POST",
         "urlTemplate": "/resource"
       },
-      "name": "[concat(parameters('ApimServiceName'), '/echo-api/create-resource')]",
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ApiName'), '/create-resource')]",
       "type": "Microsoft.ApiManagement/service/apis/operations",
       "apiVersion": "2019-01-01",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'echo-api')]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), parameters('ApiName'))]"
       ]
     },
     {
       "properties": {
-        "value": "[concat(parameters('BaseUrl'), '/create-resource-operationPolicy.xml')]",
+        "value": "[concat(parameters('BaseUrl'), '/policies/create-resource-operation.xml')]",
         "format": "rawxml-link"
       },
-      "name": "[concat(parameters('ApimServiceName'), '/echo-api/create-resource/policy')]",
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ApiName'), '/create-resource/policy')]",
       "type": "Microsoft.ApiManagement/service/apis/operations/policies",
       "apiVersion": "2019-01-01",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'echo-api', 'create-resource')]"
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), parameters('ApiName'), 'create-resource')]"
       ]
     },
     {
@@ -97,11 +103,11 @@
         "method": "PUT",
         "urlTemplate": "/resource"
       },
-      "name": "[concat(parameters('ApimServiceName'), '/echo-api/modify-resource')]",
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ApiName'), '/modify-resource')]",
       "type": "Microsoft.ApiManagement/service/apis/operations",
       "apiVersion": "2019-01-01",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'echo-api')]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), parameters('ApiName'))]"
       ]
     },
     {
@@ -124,11 +130,11 @@
         "method": "DELETE",
         "urlTemplate": "/resource"
       },
-      "name": "[concat(parameters('ApimServiceName'), '/echo-api/remove-resource')]",
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ApiName'), '/remove-resource')]",
       "type": "Microsoft.ApiManagement/service/apis/operations",
       "apiVersion": "2019-01-01",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'echo-api')]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), parameters('ApiName'))]"
       ]
     },
     {
@@ -151,23 +157,23 @@
         "method": "HEAD",
         "urlTemplate": "/resource"
       },
-      "name": "[concat(parameters('ApimServiceName'), '/echo-api/retrieve-header-only')]",
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ApiName'), '/retrieve-header-only')]",
       "type": "Microsoft.ApiManagement/service/apis/operations",
       "apiVersion": "2019-01-01",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'echo-api')]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), parameters('ApiName'))]"
       ]
     },
     {
       "properties": {
-        "value": "[concat(parameters('BaseUrl'), '/retrieve-header-only-operationPolicy.xml')]",
+        "value": "[concat(parameters('BaseUrl'), '/policies/retrieve-header-only-operation.xml')]",
         "format": "rawxml-link"
       },
-      "name": "[concat(parameters('ApimServiceName'), '/echo-api/retrieve-header-only/policy')]",
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ApiName'), '/retrieve-header-only/policy')]",
       "type": "Microsoft.ApiManagement/service/apis/operations/policies",
       "apiVersion": "2019-01-01",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'echo-api', 'retrieve-header-only')]"
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), parameters('ApiName'), 'retrieve-header-only')]"
       ]
     },
     {
@@ -209,11 +215,11 @@
         "method": "GET",
         "urlTemplate": "/resource"
       },
-      "name": "[concat(parameters('ApimServiceName'), '/echo-api/retrieve-resource')]",
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ApiName'), '/retrieve-resource')]",
       "type": "Microsoft.ApiManagement/service/apis/operations",
       "apiVersion": "2019-01-01",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'echo-api')]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), parameters('ApiName'))]"
       ]
     },
     {
@@ -254,41 +260,35 @@
         "method": "GET",
         "urlTemplate": "/resource-cached"
       },
-      "name": "[concat(parameters('ApimServiceName'), '/echo-api/retrieve-resource-cached')]",
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ApiName'), '/retrieve-resource-cached')]",
       "type": "Microsoft.ApiManagement/service/apis/operations",
       "apiVersion": "2019-01-01",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'echo-api')]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), parameters('ApiName'))]"
       ]
     },
     {
       "properties": {
-        "value": "[concat(parameters('BaseUrl'), '/retrieve-resource-cached-operationPolicy.xml')]",
+        "value": "[concat(parameters('BaseUrl'), '/policies/retrieve-resource-cached-operation.xml')]",
         "format": "rawxml-link"
       },
-      "name": "[concat(parameters('ApimServiceName'), '/echo-api/retrieve-resource-cached/policy')]",
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ApiName'), '/retrieve-resource-cached/policy')]",
       "type": "Microsoft.ApiManagement/service/apis/operations/policies",
       "apiVersion": "2019-01-01",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'echo-api', 'retrieve-resource-cached')]"
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), parameters('ApiName'), 'retrieve-resource-cached')]"
       ]
     },
     {
-      "properties": {},
-      "name": "[concat(parameters('ApimServiceName'), '/starter/echo-api')]",
+      "copy": {
+        "name": "products-copy",
+        "count": "[length(parameters('ApiProducts'))]"
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ApiProducts')[copyIndex()], '/', parameters('ApiName'))]",
       "type": "Microsoft.ApiManagement/service/products/apis",
       "apiVersion": "2019-01-01",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'echo-api')]"
-      ]
-    },
-    {
-      "properties": {},
-      "name": "[concat(parameters('ApimServiceName'), '/unlimited/echo-api')]",
-      "type": "Microsoft.ApiManagement/service/products/apis",
-      "apiVersion": "2019-01-01",
-      "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'echo-api')]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), parameters('ApiName'))]"
       ]
     }
   ]

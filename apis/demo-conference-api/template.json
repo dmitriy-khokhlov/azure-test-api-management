@@ -563,7 +563,7 @@
     },
     {
       "properties": {
-        "value": "[concat(parameters('BaseUrl'), '/api-policy.xml')]",
+        "value": "[concat(parameters('BaseUrl'), '/policy.xml')]",
         "format": "rawxml-link"
       },
       "name": "[concat(parameters('ApimServiceName'), '/', parameters('ApiName'), '/policy')]",
@@ -578,7 +578,6 @@
         "name": "products-copy",
         "count": "[length(parameters('ApiProducts'))]"
       },
-      "properties": {},
       "name": "[concat(parameters('ApimServiceName'), '/', parameters('ApiProducts')[copyIndex()], '/', parameters('ApiName'))]",
       "type": "Microsoft.ApiManagement/service/products/apis",
       "apiVersion": "2019-01-01",

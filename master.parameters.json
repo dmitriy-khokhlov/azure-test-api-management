@@ -16,6 +16,10 @@
         {
           "name": "demo-conference-api",
           "products": ["contoso-product", "unlimited"]
+        },
+        {
+          "name": "echo-api",
+          "products": ["starter", "unlimited"]
         }
       ]
     }
