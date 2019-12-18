@@ -40,7 +40,7 @@
   "resources": [
     {
       "properties": {
-        "mode": ["parameters('DeploymentMode')"],
+        "mode": "[parameters('DeploymentMode')]",
         "templateLink": {
           "uri": "[concat(parameters('BaseUrl'), '/global-policy.template.json')]",
           "contentVersion": "1.0.0.0"
@@ -64,7 +64,7 @@
         "count": "[length(parameters('Products'))]"
       },
       "properties": {
-        "mode": ["parameters('DeploymentMode')"],
+        "mode": "[parameters('DeploymentMode')]",
         "templateLink": {
           "uri": "[concat(parameters('BaseUrl'), '/products/', parameters('Products')[copyIndex()], '/template.json')]",
           "contentVersion": "1.0.0.0"
@@ -91,7 +91,7 @@
         "count": "[length(parameters('Apis'))]"
       },
       "properties": {
-        "mode": ["parameters('DeploymentMode')"],
+        "mode": "[parameters('DeploymentMode')]",
         "templateLink": {
           "uri": "[concat(parameters('BaseUrl'), '/apis/', parameters('Apis')[copyIndex()].name, '/template.json')]",
           "contentVersion": "1.0.0.0"
