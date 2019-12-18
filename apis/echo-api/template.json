@@ -36,16 +36,13 @@
       },
       "name": "[concat(parameters('ApimServiceName'), '/', parameters('ApiName'))]",
       "type": "Microsoft.ApiManagement/service/apis",
-      "apiVersion": "2019-01-01",
-      "dependsOn": []
+      "apiVersion": "2019-01-01"
     },
     {
       "properties": {
         "templateParameters": [],
         "description": "A demonstration of a POST call based on the echo backend above. The request body is expected to contain JSON-formatted data (see example below). A policy is used to automatically transform any request sent in JSON directly to XML. In a real-world scenario this could be used to enable modern clients to speak to a legacy backend.",
         "request": {
-          "queryParameters": [],
-          "headers": [],
           "representations": [
             {
               "contentType": "application/json",
@@ -55,9 +52,7 @@
         },
         "responses": [
           {
-            "statusCode": 200,
-            "headers": [],
-            "representations": []
+            "statusCode": 200
           }
         ],
         "displayName": "Create resource",
@@ -85,18 +80,10 @@
     },
     {
       "properties": {
-        "templateParameters": [],
         "description": "A demonstration of a PUT call handled by the same \"echo\" backend as above. You can now specify a request body in addition to headers and it will be returned as well.",
-        "request": {
-          "queryParameters": [],
-          "headers": [],
-          "representations": []
-        },
         "responses": [
           {
-            "statusCode": 200,
-            "headers": [],
-            "representations": []
+            "statusCode": 200
           }
         ],
         "displayName": "Modify Resource",
@@ -112,18 +99,10 @@
     },
     {
       "properties": {
-        "templateParameters": [],
         "description": "A demonstration of a DELETE call which traditionally deletes the resource. It is based on the same \"echo\" backend as in all other operations so nothing is actually deleted.",
-        "request": {
-          "queryParameters": [],
-          "headers": [],
-          "representations": []
-        },
         "responses": [
           {
-            "statusCode": 200,
-            "headers": [],
-            "representations": []
+            "statusCode": 200
           }
         ],
         "displayName": "Remove resource",
@@ -139,18 +118,10 @@
     },
     {
       "properties": {
-        "templateParameters": [],
         "description": "The HEAD operation returns only headers. In this demonstration a policy is used to set additional headers when the response is returned and to enable JSONP.",
-        "request": {
-          "queryParameters": [],
-          "headers": [],
-          "representations": []
-        },
         "responses": [
           {
-            "statusCode": 200,
-            "headers": [],
-            "representations": []
+            "statusCode": 200
           }
         ],
         "displayName": "Retrieve header only",
@@ -178,7 +149,6 @@
     },
     {
       "properties": {
-        "templateParameters": [],
         "description": "A demonstration of a GET call on a sample resource. It is handled by an \"echo\" backend which returns a response equal to the request (the supplied headers and body are being returned as received).",
         "request": {
           "queryParameters": [
@@ -196,19 +166,14 @@
               "name": "param2",
               "description": "Another sample parameter, set to not required.",
               "type": "number",
-              "required": false,
-              "values": []
+              "required": false
             }
-          ],
-          "headers": [],
-          "representations": []
+          ]
         },
         "responses": [
           {
             "statusCode": 200,
-            "description": "Returned in all cases.",
-            "headers": [],
-            "representations": []
+            "description": "Returned in all cases."
           }
         ],
         "displayName": "Retrieve resource",
@@ -224,7 +189,6 @@
     },
     {
       "properties": {
-        "templateParameters": [],
         "description": "A demonstration of a GET call with caching enabled on the same \"echo\" backend as above. Cache TTL is set to 1 hour. When you make the first request the headers you supplied will be cached. Subsequent calls will return the same headers as the first time even if you change them in your request.",
         "request": {
           "queryParameters": [
@@ -242,18 +206,13 @@
               "name": "param2",
               "description": "Another sample parameter, set to not required.",
               "type": "string",
-              "required": false,
-              "values": []
+              "required": false
             }
-          ],
-          "headers": [],
-          "representations": []
+          ]
         },
         "responses": [
           {
-            "statusCode": 200,
-            "headers": [],
-            "representations": []
+            "statusCode": 200
           }
         ],
         "displayName": "Retrieve resource (cached)",

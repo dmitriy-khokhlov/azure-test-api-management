@@ -1,0 +1,43 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "ApimServiceName": {
+      "type": "string"
+    },
+    "BaseUrl": {
+      "type": "string"
+    },
+    "ProductName" :{
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "properties": {
+        "description": "This is a test",
+        "subscriptionRequired": true,
+        "approvalRequired": false,
+        "state": "published",
+        "displayName": "Contoso product"
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ProductName'))]",
+      "type": "Microsoft.ApiManagement/service/products",
+      "apiVersion": "2019-01-01"
+    },
+    {
+      "properties": {
+        "description": "Administrators is a built-in group. Its membership is managed by the system. Microsoft Azure subscription administrators fall into this group.",
+        "displayName": "Administrators",
+        "type": "system",
+        "builtIn": true
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ProductName'), '/administrators')]",
+      "type": "Microsoft.ApiManagement/service/products/groups",
+      "apiVersion": "2019-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/products', parameters('ApimServiceName'), parameters('ProductName'))]"
+      ]
+    }
+  ]
+}

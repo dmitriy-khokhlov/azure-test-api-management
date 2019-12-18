@@ -24,10 +24,16 @@
         "description": "Mode for linked templates deployment (APIs, products, etc.)"
       }
     },
+    "Products": {
+      "type": "array",
+      "metadata": {
+        "description": "Array of products names (strings) to create. For each product name in this array this template will include <BaseUrl>/products/<ProductName>/template.json"
+      }
+    },
     "Apis": {
       "type": "array",
       "metadata": {
-        "description": "List of objects describing APIs to create: { name: string, products: array of strings }"
+        "description": "Array of objects describing APIs to create: { name: string, products: array of strings }. For each API object in this array this template will include <BaseUrl>/apis/<ApiObject.name>/template.json"
       }
     }
   },
@@ -53,10 +59,14 @@
       "apiVersion": "2018-01-01"
     },
     {
+      "copy": {
+        "name": "products-copy-loop",
+        "count": "[length(parameters('Products'))]"
+      },
       "properties": {
         "mode": ["parameters('DeploymentMode')"],
         "templateLink": {
-          "uri": "[concat(parameters('BaseUrl'), '/products.template.json')]",
+          "uri": "[concat(parameters('BaseUrl'), '/products/', parameters('Products')[copyIndex()], '/template.json')]",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
@@ -65,22 +75,25 @@
           },
           "BaseUrl": {
             "value": "[parameters('BaseUrl')]"
+          },
+          "ProductName": {
+            "value": "[parameters('Products')[copyIndex()]]"
           }
         }
       },
-      "name": "productsTemplate",
+      "name": "[concat('productTemplate-', parameters('Products')[copyIndex()])]",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2018-01-01"
     },
     {
       "copy": {
-        "name": "apis-copy",
+        "name": "apis-copy-loop",
         "count": "[length(parameters('Apis'))]"
       },
       "properties": {
         "mode": ["parameters('DeploymentMode')"],
         "templateLink": {
-          "uri": "[concat(parameters('BaseUrl'), '/', parameters('Apis')[copyIndex()].name, '/template.json')]",
+          "uri": "[concat(parameters('BaseUrl'), '/apis/', parameters('Apis')[copyIndex()].name, '/template.json')]",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
@@ -90,7 +103,10 @@
           "BaseUrl": {
             "value": "[concat(parameters('BaseUrl'), '/', parameters('Apis')[copyIndex()].name)]"
           },
-          "Products": {
+          "ApiName": {
+            "value": "[parameters('Apis')[copyIndex()].name]"
+          },
+          "ApiProducts": {
             "value": "[parameters('Apis')[copyIndex()].products]"
           }
         }
@@ -100,7 +116,7 @@
       "apiVersion": "2018-01-01",
       "dependsOn": [
         "[resourceId('Microsoft.Resources/deployments', 'globalPolicyTemplate')]",
-        "[resourceId('Microsoft.Resources/deployments', 'productsTemplate')]"
+        "products-copy-loop"
       ]
     }
   ]

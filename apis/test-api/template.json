@@ -7,12 +7,18 @@
     },
     "BaseUrl": {
       "type": "string"
+    },
+    "ApiName" :{
+      "type": "string"
+    },
+    "ApiProducts": {
+      "type": "array"
     }
   },
   "resources": [
     {
       "properties": {
-        "description": "",
+        "description": "This is a test API",
         "authenticationSettings": {
           "subscriptionKeyRequired": false
         },
@@ -23,34 +29,24 @@
         "apiRevision": "1",
         "isCurrent": true,
         "displayName": "Test API",
-        "path": "",
+        "path": "test",
         "protocols": [
           "https"
         ]
       },
-      "name": "[concat(parameters('ApimServiceName'), '/test-api')]",
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ApiName'))]",
       "type": "Microsoft.ApiManagement/service/apis",
-      "apiVersion": "2019-01-01",
-      "dependsOn": []
+      "apiVersion": "2019-01-01"
     },
     {
       "properties": {
-        "templateParameters": [],
-        "description": "",
-        "request": {
-          "queryParameters": [],
-          "headers": [],
-          "representations": []
-        },
         "responses": [
           {
             "statusCode": 200,
-            "description": "",
-            "headers": [],
             "representations": [
               {
                 "contentType": "application/json",
-                "sample": "{ 'sampleField': 'test' }"
+                "sample": "{'sampleField': 'test'}"
               }
             ]
           }
@@ -59,32 +55,35 @@
         "method": "GET",
         "urlTemplate": "/test"
       },
-      "name": "[concat(parameters('ApimServiceName'), '/test-api/test-call')]",
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ApiName'), '/test-call')]",
       "type": "Microsoft.ApiManagement/service/apis/operations",
       "apiVersion": "2019-01-01",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'test-api')]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), parameters('ApiName'))]"
       ]
     },
     {
       "properties": {
-        "value": "[concat(parameters('BaseUrl'), '/test-api-apiPolicy.xml')]",
+        "value": "[concat(parameters('BaseUrl'), '/policy.xml')]",
         "format": "rawxml-link"
       },
-      "name": "[concat(parameters('ApimServiceName'), '/test-api/policy')]",
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ApiName'), '/policy')]",
       "type": "Microsoft.ApiManagement/service/apis/policies",
       "apiVersion": "2019-01-01",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'test-api')]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), parameters('ApiName'))]"
       ]
     },
     {
-      "properties": {},
-      "name": "[concat(parameters('ApimServiceName'), '/unlimited/test-api')]",
+      "copy": {
+        "name": "products-copy",
+        "count": "[length(parameters('ApiProducts'))]"
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/', parameters('ApiProducts')[copyIndex()], '/', parameters('ApiName'))]",
       "type": "Microsoft.ApiManagement/service/products/apis",
       "apiVersion": "2019-01-01",
       "dependsOn": [
-        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'test-api')]"
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), parameters('ApiName'))]"
       ]
     }
   ]
