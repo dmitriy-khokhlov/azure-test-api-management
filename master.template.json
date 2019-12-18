@@ -54,7 +54,7 @@
           }
         }
       },
-      "name": "globalPolicyTemplate",
+      "name": "global-policy-template",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2018-01-01"
     },
@@ -81,7 +81,7 @@
           }
         }
       },
-      "name": "[concat('productTemplate-', parameters('Products')[copyIndex()])]",
+      "name": "[concat('product-template-', parameters('Products')[copyIndex()])]",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2018-01-01"
     },
@@ -111,11 +111,11 @@
           }
         }
       },
-      "name": "[concat('apiTemplate-', parameters('Apis')[copyIndex()].name)]",
+      "name": "[concat('api-template-', parameters('Apis')[copyIndex()].name)]",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2018-01-01",
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/deployments', 'globalPolicyTemplate')]",
+        "[resourceId('Microsoft.Resources/deployments', 'global-policy-template')]",
         "products-copy-loop"
       ]
     }
