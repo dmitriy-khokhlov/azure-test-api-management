@@ -144,7 +144,7 @@
             "value": "[parameters('ApimServiceName')]"
           },
           "BaseUrl": {
-            "value": "[concat(parameters('BaseUrl'), '/', parameters('Apis')[copyIndex()].name)]"
+            "value": "[concat(parameters('BaseUrl'), '/apis/', parameters('Apis')[copyIndex()].name)]"
           },
           "ApiName": {
             "value": "[parameters('Apis')[copyIndex()].name]"
