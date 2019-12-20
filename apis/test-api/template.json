@@ -76,7 +76,7 @@
     },
     {
       "copy": {
-        "name": "products-copy",
+        "name": "products-copy-loop",
         "count": "[length(parameters('ApiProducts'))]"
       },
       "name": "[concat(parameters('ApimServiceName'), '/', parameters('ApiProducts')[copyIndex()], '/', parameters('ApiName'))]",
