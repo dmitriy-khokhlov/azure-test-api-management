@@ -6,7 +6,7 @@
       "value": "test-apim-alisa"
     },
     "BaseUrl": {
-      "value": "https://dev.azure.com/dkhokhlov/e4c0def8-4c9d-49f9-b776-fe165ec740d9/_apis/git/repositories/82f5c589-5b79-4647-9f8e-eedf84d96c7d/items"
+      "value": "https://raw.githubusercontent.com/dmitry-hohlov/azure-test-api-management/master"
     },
     "DeploymentMode": {
       "value": "Incremental"
