@@ -73,6 +73,9 @@
       }
     },
     {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-01-01",
+      "name": "global-policy-template",
       "properties": {
         "mode": "[parameters('DeploymentMode')]",
         "templateLink": {
@@ -88,9 +91,6 @@
           }
         }
       },
-      "name": "global-policy-template",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2018-01-01",
       "dependsOn": [
         "[resourceId('Microsoft.ApiManagement/service', parameters('ApimServiceName'))]"
       ]
@@ -100,6 +100,9 @@
         "name": "products-copy-loop",
         "count": "[length(parameters('Products'))]"
       },
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-01-01",
+      "name": "[concat('product-template-', parameters('Products')[copyIndex()])]",
       "properties": {
         "mode": "[parameters('DeploymentMode')]",
         "templateLink": {
@@ -118,9 +121,6 @@
           }
         }
       },
-      "name": "[concat('product-template-', parameters('Products')[copyIndex()])]",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2018-01-01",
       "dependsOn": [
         "[resourceId('Microsoft.ApiManagement/service', parameters('ApimServiceName'))]"
       ]
@@ -130,6 +130,9 @@
         "name": "apis-copy-loop",
         "count": "[length(parameters('Apis'))]"
       },
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-01-01",
+      "name": "[concat('api-template-', parameters('Apis')[copyIndex()].name)]",
       "properties": {
         "mode": "[parameters('DeploymentMode')]",
         "templateLink": {
@@ -151,9 +154,6 @@
           }
         }
       },
-      "name": "[concat('api-template-', parameters('Apis')[copyIndex()].name)]",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2018-01-01",
       "dependsOn": [
         "[resourceId('Microsoft.Resources/deployments', 'global-policy-template')]",
         "products-copy-loop"
