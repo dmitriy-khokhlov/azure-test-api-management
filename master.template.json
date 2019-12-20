@@ -114,7 +114,7 @@
             "value": "[parameters('ApimServiceName')]"
           },
           "BaseUrl": {
-            "value": "[parameters('BaseUrl')]"
+            "value": "[concat(parameters('BaseUrl'), '/', parameters('Products')[copyIndex()])]"
           },
           "ProductName": {
             "value": "[parameters('Products')[copyIndex()]]"
